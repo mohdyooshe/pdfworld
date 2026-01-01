@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to PDF World</title>
+
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #ffffff;
+            color: #000000;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        h1 {
+            color: #000000;
+            margin-bottom: 20px;
+        }
+
+        /* Navbar Styling */
+        .navbar {
+            background-color: #cab587;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .navbar a {
+            color: #000000;
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            transition: background-color 0.3s, color 0.3s;
+            font-weight: 500;
+        }
+
+        .navbar a:hover {
+            background-color: #000000;
+            color: #ffffff;
+        }
+
+        .navbar-brand a {
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 10px;
+        }
+
+        /* Container & Cards */
+        .container {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 50px;
+        }
+
+        .card {
+            display: flex;
+            align-items: flex-start;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .card img {
+            max-width: 250px;
+            border-radius: 12px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .card img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .card-content {
+            flex: 1;
+            text-align: left;
+        }
+
+        .card-content p {
+            font-size: 1.1em;
+            line-height: 1.6;
+            color: #000000;
+            margin-bottom: 20px;
+        }
+
+        /* CTA Button */
+        .cta-button {
+            display: inline-block;
+            background-color: #cab587;
+            color: #121212;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .cta-button:hover {
+            background-color: #000000;
+            color: #ffe600;
+        }
+
+        /* Footer */
+        footer {
+            background: #cab587;
+            color: #000000;
+            padding: 15px;
+            margin-top: 30px;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Responsive */
+        @media screen and (max-width: 768px) {
+            .card {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            .card-content {
+                text-align: center;
+            }
+            .nav-links {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar">
+    <div class="navbar-brand">
+        <a href="{{ url_for('home') }}">📄 PDF World</a>
+    </div>
+
+    <div class="nav-links">
+        <a href="{{ url_for('home') }}">Home</a>
+        <a href="{{ url_for('text_to_pdf_form') }}">Text to PDF</a>
+        <a href="{{ url_for('image_to_pdf_form') }}">Image to PDF</a>
+        <a href="{{ url_for('pdf_qa') }}">PDF Query</a>
+    </div>
+</nav>
+
+<h1 style="font-size: 1.2em;">
+    Designed for ease of use. No sign-ups, no hidden fees, just pure conversion.
+</h1>
+
+<!-- Main Content -->
+<div class="container">
+
+    <!-- Text to PDF -->
+    <div class="card">
+        <img src="{{ url_for('static', filename='texttopdf.png') }}" alt="Text to PDF">
+        <div class="card-content">
+            <p>
+                Convert plain text into clean, professional PDF documents in seconds.
+            </p>
+            <a href="{{ url_for('text_to_pdf_form') }}" class="cta-button">
+                Start Converting Text to PDF
+            </a>
+        </div>
+    </div>
+
+    <!-- Image to PDF -->
+    <div class="card">
+        <img src="{{ url_for('static', filename='imagetopdf.jpeg') }}" alt="Image to PDF">
+        <div class="card-content">
+            <p>
+                Merge your images into a single high-quality PDF file effortlessly.
+            </p>
+            <a href="{{ url_for('image_to_pdf_form') }}" class="cta-button">
+                Start Converting Image to PDF
+            </a>
+        </div>
+    </div>
+
+    <!-- PDF Query -->
+    <div class="card">
+        <img src="{{ url_for('static', filename='pdfquery.jpg') }}" alt="PDF Query">
+        <div class="card-content">
+            <p>
+                Ask questions from your PDF and get instant AI-powered answers.
+            </p>
+            <a href="{{ url_for('pdf_qa') }}" class="cta-button">
+                Ask Questions About Your PDF
+            </a>
+        </div>
+    </div>
+
+</div>
+
+<footer>
+    <p>&copy; 2025 Mohd Yooshe Ansari | All Rights Reserved</p>
+</footer>
+
+</body>
+</html>

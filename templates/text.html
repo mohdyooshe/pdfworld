@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Text to PDF – PDF World</title>
+
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #ffffff;
+      margin: 0;
+      padding-top: 90px; /* space for navbar */
+      text-align: center;
+      color: #000000;
+    }
+
+    /* ===== NAVBAR (SAME AS HOME) ===== */
+    .navbar {
+      background-color: #cab587;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+    }
+
+    .navbar a {
+      color: #000000;
+      text-decoration: none;
+      padding: 8px 15px;
+      border-radius: 4px;
+      transition: background-color 0.3s, color 0.3s;
+      font-weight: 500;
+    }
+
+    .navbar a:hover {
+      background-color: #000000;
+      color: #ffffff;
+    }
+
+    .navbar-brand a {
+      font-size: 1.5em;
+      font-weight: bold;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 10px;
+    }
+
+    /* ===== MAIN CONTAINER ===== */
+    .container {
+      background-color: #ffffff;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 600px;
+      margin: 40px auto;
+      text-align: left;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    input[type="text"],
+    textarea {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 15px;
+      box-sizing: border-box;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 150px;
+    }
+
+    button {
+      background-color: #cab587;
+      color: #121212;
+      padding: 15px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1.1em;
+      width: 100%;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    button:hover {
+      background-color: #000000;
+      color: #ffe600;
+    }
+
+    .file-info {
+      font-size: 0.9em;
+      color: #777;
+      margin-top: -10px;
+      margin-bottom: 20px;
+    }
+
+    /* Footer */
+    footer {
+      background: #cab587;
+      color: #000000;
+      padding: 15px;
+      margin-top: 50px;
+      text-align: center;
+      box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    @media screen and (max-width: 768px) {
+      .nav-links {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- ===== NAVBAR ===== -->
+<nav class="navbar">
+  <div class="navbar-brand">
+    <a href="{{ url_for('home') }}">📄 PDF World</a>
+  </div>
+
+  <div class="nav-links">
+    <a href="{{ url_for('home') }}">Home</a>
+    <a href="{{ url_for('text_to_pdf_form') }}">Text to PDF</a>
+    <a href="{{ url_for('image_to_pdf_form') }}">Image to PDF</a>
+    <a href="{{ url_for('pdf_qa') }}">PDF Query</a>
+  </div>
+</nav>
+
+<!-- ===== MAIN CONTENT ===== -->
+<div class="container">
+  <h1>📝 Text to PDF Converter</h1>
+
+  <form action="{{ url_for('generate_pdf') }}" method="post">
+
+    <label for="pdf_name">PDF Filename</label>
+    <input
+      type="text"
+      id="pdf_name"
+      name="pdf_name"
+      value="my_document"
+      required
+    >
+
+    <p class="file-info">
+      The file will be downloaded as <strong>my_document.pdf</strong>
+    </p>
+
+    <label for="paragraph">Enter your text</label>
+    <textarea
+      id="paragraph"
+      name="paragraph"
+      required
+      placeholder="Type or paste your text here..."
+    ></textarea>
+
+    <button type="submit">Download PDF</button>
+  </form>
+</div>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <p>&copy; 2025 Mohd Yooshe Ansari | All Rights Reserved</p>
+</footer>
+
+</body>
+</html>
