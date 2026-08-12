@@ -3,7 +3,9 @@ import io
 import uuid
 import tempfile
 import requests
+from dotenv import load_dotenv
 
+load_dotenv()
 from flask import (
     Flask,
     render_template,
@@ -236,7 +238,22 @@ Answer:
         }
     )
 
-    return response.json()["choices"][0]["message"]["content"].strip()
+    # Check if Groq request failed
+    if not response.ok:
+        print("STATUS CODE:", response.status_code)
+        print("GROQ RESPONSE:", response.text)
+        return f"Groq API Error: {response.text}"
+
+    # Convert response to JSON
+    data = response.json()
+
+    # Check whether choices exists
+    if "choices" not in data:
+        print("UNEXPECTED RESPONSE:", data)
+        return "Unexpected response from Groq API."
+
+    # Return the answer
+    return data["choices"][0]["message"]["content"].strip()
 
 
 # =================================================
