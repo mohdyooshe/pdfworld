@@ -90,7 +90,9 @@ def create_pdf_from_text(text):
 @app.route("/")
 def home():
     return render_template("home.html")
-
+@app.route("/test")
+def test():
+    return "PDF WORLD UPDATED VERSION"
 
 # =================================================
 # IMAGE → PDF (NO DISK USAGE)
