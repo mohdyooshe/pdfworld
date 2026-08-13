@@ -163,18 +163,7 @@
 <!-- Main Content -->
 <div class="container">
 
-     <!-- PDF Query -->
-    <div class="card">
-        <img src="{{ url_for('static', filename='pdfquery.jpg') }}" alt="PDF Query">
-        <div class="card-content">
-            <p>
-                Ask questions from your PDF and get instant AI-powered answers.
-            </p>
-            <a href="{{ url_for('pdf_qa') }}" class="cta-button">
-                Ask Questions About Your PDF
-            </a>
-        </div>
-    </div>
+    
     <!-- Text to PDF -->
     <div class="card">
         <img src="{{ url_for('static', filename='texttopdf.png') }}" alt="Text to PDF">
@@ -200,7 +189,18 @@
             </a>
         </div>
     </div>
-
+     <!-- PDF Query -->
+    <div class="card">
+        <img src="{{ url_for('static', filename='pdfquery.jpg') }}" alt="PDF Query">
+        <div class="card-content">
+            <p>
+                Ask questions from your PDF and get instant AI-powered answers.
+            </p>
+            <a href="{{ url_for('pdf_qa') }}" class="cta-button">
+                Ask Questions About Your PDF
+            </a>
+        </div>
+    </div>
    
 
 </div>
