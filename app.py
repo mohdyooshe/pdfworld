@@ -6,6 +6,7 @@ import requests
 from dotenv import load_dotenv
 
 load_dotenv()
+print("GROQ KEY LOADED:", bool(os.getenv("GROQ_API_KEY")))
 from flask import (
     Flask,
     render_template,
