@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to PDF World</title>
+    <title>PDF Query – PDF World</title>
 
     <style>
         /* Global Styles */
@@ -55,64 +55,86 @@
             gap: 10px;
         }
 
-        /* Container & Cards */
+        /* Container */
         .container {
-            max-width: 900px;
+            max-width: 700px;
             margin: 50px auto;
             padding: 30px;
             border-radius: 12px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            display: flex;
-            flex-direction: column;
-            gap: 50px;
-        }
-
-        .card {
-            display: flex;
-            align-items: flex-start;
-            gap: 30px;
-            flex-wrap: wrap;
-        }
-
-        .card img {
-            max-width: 250px;
-            border-radius: 12px;
-            transition: transform 0.3s, box-shadow 0.3s;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        .card img:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-        }
-
-        .card-content {
-            flex: 1;
             text-align: left;
         }
 
-        .card-content p {
-            font-size: 1.1em;
-            line-height: 1.6;
-            color: #000000;
-            margin-bottom: 20px;
+        .container h1 {
+            text-align: center;
         }
 
-        /* CTA Button */
-        .cta-button {
-            display: inline-block;
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        input[type="file"],
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 15px;
+            box-sizing: border-box;
+        }
+
+        button {
             background-color: #cab587;
             color: #121212;
-            padding: 15px 30px;
-            text-decoration: none;
+            padding: 15px;
+            border: none;
             border-radius: 8px;
+            cursor: pointer;
             font-size: 1.1em;
+            width: 100%;
             transition: background-color 0.3s, color 0.3s;
         }
 
-        .cta-button:hover {
+        button:hover {
             background-color: #000000;
             color: #ffe600;
+        }
+
+        .file-info {
+            font-size: 0.9em;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .error-box {
+            background-color: #fdecea;
+            color: #b3261e;
+            border: 1px solid #f5c2c0;
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .qa-box {
+            background-color: #faf7f0;
+            border: 1px solid #e6dcc4;
+            padding: 16px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .qa-box .question {
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .qa-box .answer {
+            white-space: pre-wrap;
+            line-height: 1.6;
         }
 
         /* Footer */
@@ -124,16 +146,7 @@
             box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
         }
 
-        /* Responsive */
         @media screen and (max-width: 768px) {
-            .card {
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
-            }
-            .card-content {
-                text-align: center;
-            }
             .nav-links {
                 flex-direction: column;
             }
@@ -156,52 +169,39 @@
     </div>
 </nav>
 
-<h1 style="font-size: 1.2em;">
-    Designed for ease of use. No sign-ups, no hidden fees, just pure conversion.
+<h1 style="font-size: 1.2em; margin-top: 20px;">
+    Ask questions from your PDF and get instant AI-powered answers.
 </h1>
 
-<!-- Main Content -->
 <div class="container">
 
-     <!-- PDF Query -->
-    <div class="card">
-        <img src="{{ url_for('static', filename='pdfquery.jpg') }}" alt="PDF Query">
-        <div class="card-content">
-            <p>
-                Ask questions from your PDF and get instant AI-powered answers.
-            </p>
-            <a href="{{ url_for('pdf_qa') }}" class="cta-button">
-                Ask Questions About Your PDF
-            </a>
-        </div>
-    </div>
-    <!-- Text to PDF -->
-    <div class="card">
-        <img src="{{ url_for('static', filename='texttopdf.png') }}" alt="Text to PDF">
-        <div class="card-content">
-            <p>
-                Convert plain text into clean, professional PDF documents in seconds.
-            </p>
-            <a href="{{ url_for('text_to_pdf_form') }}" class="cta-button">
-                Start Converting Text to PDF
-            </a>
-        </div>
-    </div>
+    {% if error %}
+        <div class="error-box">{{ error }}</div>
+    {% endif %}
 
-    <!-- Image to PDF -->
-    <div class="card">
-        <img src="{{ url_for('static', filename='imagetopdf.jpeg') }}" alt="Image to PDF">
-        <div class="card-content">
-            <p>
-                Merge your images into a single high-quality PDF file effortlessly.
-            </p>
-            <a href="{{ url_for('image_to_pdf_form') }}" class="cta-button">
-                Start Converting Image to PDF
-            </a>
-        </div>
-    </div>
+    {% if uploaded_pdf %}
+        <p class="file-info">📎 Currently loaded PDF: <strong>{{ uploaded_pdf }}</strong></p>
+    {% endif %}
 
-   
+    <form action="{{ url_for('ask_pdf') }}" method="post" enctype="multipart/form-data">
+
+        {% if not uploaded_pdf %}
+            <label for="pdf_file">Upload a PDF</label>
+            <input type="file" id="pdf_file" name="pdf_file" accept="application/pdf" required>
+        {% endif %}
+
+        <label for="question">Ask a question about this PDF</label>
+        <input type="text" id="question" name="question" placeholder="e.g. What is the main conclusion?" required>
+
+        <button type="submit">Ask</button>
+    </form>
+
+    {% if question and answer %}
+        <div class="qa-box">
+            <div class="question">Q: {{ question }}</div>
+            <div class="answer">{{ answer }}</div>
+        </div>
+    {% endif %}
 
 </div>
 
